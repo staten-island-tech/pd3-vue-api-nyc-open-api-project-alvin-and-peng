@@ -12,7 +12,5 @@ onMounted(() => {
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <main></main>
 </template>
