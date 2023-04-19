@@ -1,9 +1,17 @@
 <script setup>
-import TheWelcome from '../components/TheWelcome.vue'
+import { ref, onMounted } from 'vue'
+const water = ref('')
+async function getWater() {
+  let response = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
+  let data = await response.json()
+  water.value = data.results
+}
+
+onMounted(() => {
+  getWater()
+})
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div></div>
 </template>
