@@ -1,9 +1,15 @@
 <template>
-  <div></div>
+  <div class="about">
+    <h1>A future chart</h1>
+  </div>
 </template>
 
-<script>
-export default {}
-</script>
-
-<style lang="scss" scoped></style>
+<style>
+@media (min-width: 1024px) {
+  .about {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+  }
+}
+</style>
