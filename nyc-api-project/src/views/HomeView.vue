@@ -1,10 +1,10 @@
 <script setup>
 import { ref, onMounted } from 'vue'
-const year = ref('')
+const water = ref('')
 async function getWater() {
   let res = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
   let data = await res.json()
-  year.value = data.results
+  water.value = data
 }
 onMounted(() => {
   getWater()
