@@ -1,5 +1,6 @@
 <script setup>
 import { computed } from 'vue'
+import ChartThing from './chartThing.vue'
 const props = defineProps({
   water: Object,
   year: Number,
@@ -10,12 +11,13 @@ const props = defineProps({
 })
 
 const waterPath = computed(() => {
-  return `/waterData/${props.water.name}`
+  return `/waterData/${props.water.year}`
 })
 </script>
 
 <template>
   <router-link :to="waterPath" class="card">
+    <h1>{{ id }}</h1>
     <h2>Year: {{ water.year }}</h2>
     <h3>NYC Population: {{ water.new_york_city_population }}</h3>
     <p>Gallons Used Per Day(gallons): {{ water.nyc_consumption_million_gallons_per_day }}</p>
