@@ -1,6 +1,5 @@
 <script setup>
 import { computed } from 'vue'
-import ChartThing from './chartThing.vue'
 const props = defineProps({
   water: Object,
   year: Number,

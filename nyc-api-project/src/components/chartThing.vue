@@ -1,37 +1,43 @@
 <template>
-  <h2>ChartJS</h2>
-  <div>
-    <canvas id="myChart"></canvas>
-  </div>
+  <canvas id="myChart" :options="chartOptions" :data="chartData"></canvas>
 </template>
 
 <script>
 import Chart from 'chart.js/auto'
 
-const labels = ['One', 'Two', 'Three', 'Four', 'Five']
+export default {
+  name: 'chartThing'
+}
 
+mounted() {
+const ctx = document.getElementById('myChart');
+
+const labels = ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange']
 const data = {
   labels: labels,
   datasets: [
     {
-      label: 'My Dataset',
-      backgroundColor: 'rgb(255,99,132)',
-      borderColor: 'rgb(255,99,132)',
-      data: [0, 10, 5, 2, 20, 30, 45]
+      label: 'My First Dataset',
+      data: [65, 59, 80, 81, 56, 55, 40],
+      fill: false,
+      borderColor: 'rgb(75, 192, 192)',
+      tension: 0.1
     }
   ]
 }
 
-const config = {
+const myChart = new Chart(ctx, {
   type: 'line',
-  data: data,
-  options: {}
-}
-onMounted(() => {
-  const myChart = new Chart(document.getElementById('myChart'), config)
+  data: data
 })
 
-export default {}
+myChart
+}
 </script>
 
-<style lang="scss" scoped></style>
+<style>
+#myChart {
+  max-width: 500px;
+  max-height: 500px;
+}
+</style>

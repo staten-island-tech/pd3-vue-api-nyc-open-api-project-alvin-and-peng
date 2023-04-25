@@ -1,11 +1,14 @@
 <template>
   <div>{{ thingy }}</div>
+  <chartThing />
 </template>
 
 <script>
+import chartThing from '../components/chartThing.vue'
 export default {
   data() {
     return {
+      components: { chartThing },
       thingy: {}
     }
   },

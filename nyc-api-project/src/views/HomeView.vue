@@ -1,6 +1,8 @@
 <script setup>
+import chartThing from '../components/chartThing.vue'
 import waterCards from '../components/waterCards.vue'
 import { ref, onMounted } from 'vue'
+
 const water = ref('')
 async function getWater() {
   const response = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
@@ -17,4 +19,5 @@ onMounted(() => {
   <div class="container">
     <waterCards v-for="(title, index) in water" :key="title.year" :id="index + 1" :water="title" />
   </div>
+  <chartThing />
 </template>
