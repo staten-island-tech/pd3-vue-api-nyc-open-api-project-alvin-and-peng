@@ -1,11 +1,12 @@
 <template>
-  <div>
-    <h1>test</h1>
-  </div>
+  <BarChart />
 </template>
 
 <script>
-export default {}
-</script>
+import BarChart from '../components/ChartComponent.vue'
 
-<style></style>
+export default {
+  name: 'App',
+  components: { BarChart }
+}
+</script>
