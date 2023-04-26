@@ -1,12 +1,7 @@
 <template>
-  <BarChart />
+  <main><nycpopulation /></main>
 </template>
 
 <script>
-import BarChart from '../components/ChartComponent.vue'
-
-export default {
-  name: 'App',
-  components: { BarChart }
-}
+import nycpopulation from '../components/ChartComponent.vue'
 </script>

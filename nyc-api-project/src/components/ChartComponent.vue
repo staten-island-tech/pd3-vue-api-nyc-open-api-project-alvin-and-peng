@@ -1,52 +1,44 @@
 <template>
-  <Bar id="mychart" :options="chartOptions" :data="chartData" />
+  <canvas id="charts"></canvas>
 </template>
 
 <script>
-import { ref, onMounted } from 'vue'
-import { Bar } from 'vue-chartjs'
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-} from 'chart.js'
+import Chart from 'chart.js/auto'
+import { ref } from 'vue'
 
-const water = ref('')
+const waterdatas = ref('')
 async function getWater() {
   let res = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
-  let Data = await res.json()
-  water.value = Data
+  waterdatas.value = await res.json()
+  let data = waterdatas.value
+  console.log(data)
+  return data
 }
-onMounted(() => {
-  getWater()
-})
-
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'BarChart',
-  components: { Bar },
-  data() {
-    return {
-      chartData: {
-        // labels: ['January', 'February', 'March'],
-        // datasets: [{ data: [40, 20, 12] }]
-        labels: ['water.year'],
-        datasets: [{ data: ['water.new_york_city_population'] }]
-      },
-      chartOptions: {
-        responsive: true
+  name: 'nycpopulation',
+  async mounted() {
+    let data = await getWater()
+    let a = data.map((e) => {
+      return e.new_york_city_population
+    })
+    let b = data.map((e) => {
+      return e.year
+    })
+    console.log(a)
+    console.log(b)
+    new Chart(document.getElementById('charts'), {
+      type: 'bar',
+      data: {
+        labels: a,
+        datasets: [
+          {
+            label: 'Nyc Population',
+            data: b
+          }
+        ]
       }
-    }
+    })
   }
 }
 </script>
-
-<style>
-#mychart {
-}
-</style>
