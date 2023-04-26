@@ -3,7 +3,7 @@ import { computed } from 'vue'
 const props = defineProps({
   water: Object,
   year: Number,
-  id: String,
+  id: Number,
   new_york_city_population: Number,
   nyc_consumption_million_gallons_per_day: Number,
   per_capita_gallons_per_person_per_day: Number

@@ -1,5 +1,4 @@
 <template>
-  <div>{{ thingy }}</div>
   <chartThing />
 </template>
 
@@ -14,7 +13,7 @@ export default {
   },
 
   mounted: async function () {
-    await this.getWater()
+    await this.getData()
   },
   methods: {
     getData: async function () {
