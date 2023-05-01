@@ -1,44 +1,37 @@
 <template>
-  <div>
-    <h1>NYC Consumption per Day</h1>
-    <canvas id="myChart"></canvas>
-  </div>
+  <Bar id="PieChart" :options="chartOptions" :data="chartData"></Bar>
 </template>
-
 
 <script>
 import { Pie } from 'vue-chartjs'
-
+import {
+  Chart as ChartJS,
+  Title,
+  Tooltip,
+  Legend,
+  BarElement,
+  CategoryScale,
+  LinearScale
+} from 'chart.js'
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 export default {
-  name: 'NycConsumptionChart',
-  extends: Pie,
-  data() {
-    return {
-      consumptionData: [],
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-      },
-    }
-  },
-  mounted() {
-    fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
-      .then(response => response.json())
-      .then(data => {
-        this.consumptionData = data.map(item => item.nyc_consumption_gallons_per_day)
-        this.renderChart(
-          {
-            labels: ['NYC Consumption per Day', 'Other Consumption'],
-            datasets: [
-              {
-                backgroundColor: ['#41B883', '#E46651'],
-                data: [this.consumptionData[0], 1 - this.consumptionData[0]],
-              },
-            ],
-          },
-          this.options
-        )
+  name: 'PieChart',
+  components: { Pie },
+  props: {
+    chartData: {
+      type: Object,
+      required: true
+    },
+    chartOptions: {
+      type: Object,
+      default: () => ({
+        scales: {
+          y: {
+            beginAtZero: true
+          }
+        }
       })
-  },
+    }
+  }
 }
 </script>
