@@ -12,11 +12,24 @@ export default {
 </script>
 
 <template>
-  <h1>{{ id }}</h1>
-  <h2>Year: {{ water.year }}</h2>
-  <h3>NYC Population: {{ water.new_york_city_population }}</h3>
-  <p>Gallons Used Per Day(gallons): {{ water.nyc_consumption_million_gallons_per_day }}</p>
-  <p>Average Gallons Used Per Day: {{ water.per_capita_gallons_per_person_per_day }}</p>
+  <div class="container">
+    <h1>{{ id }}</h1>
+    <h2>Year: {{ water.year }}</h2>
+    <h3>NYC Population: {{ water.new_york_city_population }}</h3>
+    <p>Gallons Used Per Day(gallons): {{ water.nyc_consumption_million_gallons_per_day }}</p>
+    <p>Average Gallons Used Per Day: {{ water.per_capita_gallons_per_person_per_day }}</p>
+  </div>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped>
+.container {
+  border: 1px solid black;
+  max-width: 250px;
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  padding: 50px;
+  margin: 50px;
+}
+</style>

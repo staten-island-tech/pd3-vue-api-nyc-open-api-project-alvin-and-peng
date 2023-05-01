@@ -8,4 +8,8 @@
   </div>
 </template>
 
-<style></style>
+<style>
+.nav {
+  text-align: center;
+}
+</style>

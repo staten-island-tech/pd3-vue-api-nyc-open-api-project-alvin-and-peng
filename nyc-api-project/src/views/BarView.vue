@@ -1,5 +1,6 @@
 <template>
-  <div class="container">
+  <div class="contain">
+    Years for Average Consumption of Water Per Person (Gallons)
     <BarChart v-if="loaded" :data="chartData" :options="chartOptions" />
   </div>
 </template>
@@ -14,21 +15,7 @@ export default {
     return {
       loaded: false,
       chartData: {
-        labels: [
-          'TESTING1',
-          'TESTING2',
-          'TESTING3',
-          'TESTING4',
-          'TESTING5',
-          'TESTING6',
-          'TESTING7',
-          'TESTING8',
-          'TESTING9',
-          'TESTING10',
-          'TESTING11',
-          'TESTING12',
-          'TESTING13'
-        ],
+        labels: ['110-120', '130-140', '150-160', '170-180', '190-200', '200+'],
         datasets: [{ data: [] }]
       },
       chartOptions: {
@@ -44,8 +31,38 @@ export default {
       const res = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
       console.log(res)
       let data = await res.json()
-      const watery = data.filter((york) => york.nyc_consumption_million_gallons_per_day)
-      this.chartData.datasets[0].data.push(watery.length)
+      const one = data.filter(
+        (york) =>
+          york.per_capita_gallons_per_person_per_day <= '120' &&
+          york.per_capita_gallons_per_person_per_day >= '110'
+      )
+      this.chartData.datasets[0].data.push(one.length)
+      const two = data.filter(
+        (york) =>
+          york.per_capita_gallons_per_person_per_day >= '130' &&
+          york.per_capita_gallons_per_person_per_day <= '140'
+      )
+      this.chartData.datasets[0].data.push(two.length)
+      const three = data.filter(
+        (york) =>
+          york.per_capita_gallons_per_person_per_day >= '150' &&
+          york.per_capita_gallons_per_person_per_day <= '160'
+      )
+      this.chartData.datasets[0].data.push(three.length)
+      const four = data.filter(
+        (york) =>
+          york.per_capita_gallons_per_person_per_day >= '170' &&
+          york.per_capita_gallons_per_person_per_day <= '180'
+      )
+      this.chartData.datasets[0].data.push(four.length)
+      const five = data.filter(
+        (york) =>
+          york.per_capita_gallons_per_person_per_day < '200' &&
+          york.per_capita_gallons_per_person_per_day >= '190'
+      )
+      this.chartData.datasets[0].data.push(five.length)
+      const six = data.filter((york) => york.per_capita_gallons_per_person_per_day >= '200')
+      this.chartData.datasets[0].data.push(six.length)
       this.loaded = true
     } catch (error) {
       console.log(error)
@@ -55,8 +72,9 @@ export default {
 </script>
 
 <style>
-.container {
+.contain {
   align-items: center;
   text-align: center;
+  scale: 87%;
 }
 </style>
