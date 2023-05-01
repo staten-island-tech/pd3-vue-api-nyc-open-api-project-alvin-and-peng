@@ -4,19 +4,17 @@
 
 <script>
 import Chart from 'chart.js/auto'
-import { ref } from 'vue'
 
-const waterdatas = ref('')
 async function getWater() {
   let res = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
-  waterdatas.value = await res.json()
-  let data = waterdatas.value
+  data = await res.json()
+
   console.log(data)
   return data
 }
 
 export default {
-  name: 'nycpopulation',
+  name: 'NycPopulation',
   async mounted() {
     let data = await getWater()
     let a = data.map((e) => {
@@ -30,11 +28,11 @@ export default {
     new Chart(document.getElementById('charts'), {
       type: 'bar',
       data: {
-        labels: a,
+        labels: b,
         datasets: [
           {
             label: 'Nyc Population',
-            data: b
+            data: a
           }
         ]
       }

@@ -11,7 +11,6 @@ import { RouterLink, RouterView } from 'vue-router'
     </div>
   </header>
   <RouterView />
-  <ChartComponent />
 </template>
 
 <style scoped>

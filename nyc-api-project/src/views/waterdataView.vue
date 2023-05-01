@@ -1,7 +1,7 @@
 <template>
-  <main><nycpopulation /></main>
+  <main><NycPopulation /></main>
 </template>
 
 <script>
-import nycpopulation from '../components/ChartComponent.vue'
+import NycPopulation from '../components/ChartComponent.vue'
 </script>
