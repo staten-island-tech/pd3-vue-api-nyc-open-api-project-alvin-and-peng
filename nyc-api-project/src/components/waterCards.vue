@@ -23,6 +23,7 @@ export default {
 
 <style scoped>
 .container {
+  background-color: aliceblue;
   border: 1px solid black;
   max-width: 250px;
   align-items: center;

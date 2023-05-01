@@ -28,6 +28,11 @@ export default {
         scales: {
           y: {
             beginAtZero: true
+          },
+
+          legend: {
+            display: true,
+            title: 'Amount'
           }
         }
       })
