@@ -14,17 +14,17 @@ export default {
     return {
       loaded: false,
       chartData: {
-        labels: ['Total NYC Consumption', 'Consumption per Person'],
+        labels: ['<1000', '1050-1100', '1150-1200', '1250-1300', '1350-1499', '1500+'],
         datasets: [
           {
-            data: [],
-            backgroundColor: ['#caf0f8', '#ADD8f9']
+            data: []
           }
         ]
       },
       chartOptions: {
         responsive: true,
-        maintainAspectRatio: true
+        maintainAspectRatio: true,
+        backgroundColor: ['#caf0f8', '#ADD8f9']
       }
     }
   },
@@ -34,15 +34,34 @@ export default {
       const res = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
       console.log(res)
       let data = await res.json()
-      let nycConsumption = 0
-      let perPersonConsumption = 0
-      data.forEach((york) => {
-        nycConsumption += Number(york.nyc_consumption_million_gallons_per_day)
-        perPersonConsumption += Number(york.per_capita_gallons_per_person_per_day)
-      })
-      perPersonConsumption = perPersonConsumption / data.length
-      this.chartData.datasets[0].data.push(nycConsumption.toFixed(2))
-      this.chartData.datasets[0].data.push(perPersonConsumption.toFixed(2))
+      const uno = data.filter((york) => york.nyc_consumption_million_gallons_per_day < '1000')
+      this.chartData.datasets[0].data.push(uno.length)
+      const dos = data.filter(
+        (york) =>
+          york.nyc_consumption_million_gallons_per_day >= '1050' &&
+          york.nyc_consumption_million_gallons_per_day <= '1100'
+      )
+      this.chartData.datasets[0].data.push(dos.length)
+      const tres = data.filter(
+        (york) =>
+          york.nyc_consumption_million_gallons_per_day >= '1150' &&
+          york.nyc_consumption_million_gallons_per_day <= '1200'
+      )
+      this.chartData.datasets[0].data.push(tres.length)
+      const quadro = data.filter(
+        (york) =>
+          york.nyc_consumption_million_gallons_per_day >= '1250' &&
+          york.nyc_consumption_million_gallons_per_day <= '1300'
+      )
+      this.chartData.datasets[0].data.push(quadro.length)
+      const cinco = data.filter(
+        (york) =>
+          york.nyc_consumption_million_gallons_per_day >= '1350' &&
+          york.nyc_consumption_million_gallons_per_day <= '1499'
+      )
+      this.chartData.datasets[0].data.push(cinco.length)
+      const sixe = data.filter((york) => york.nyc_consumption_million_gallons_per_day >= '1500')
+      this.chartData.datasets[0].data.push(sixe.length)
       this.loaded = true
     } catch (error) {
       console.log(error)
