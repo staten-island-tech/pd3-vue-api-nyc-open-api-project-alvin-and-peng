@@ -1,43 +1,59 @@
 <template>
-  <div>
-    <canvas ref="pieChart"></canvas>
+  <div class="contain">
+    NYC Consumption (Million Gallons Per Day)
+    <PieChart v-if="loaded" :data="chartData" :options="chartOptions" />
   </div>
 </template>
-
 <script>
-import { Pie } from 'vue-chartjs'
-
+import PieChart from '../components/pieChart.vue'
+import {} from 'vue'
 export default {
-  extends: Pie,
+  name: 'PieView',
+  components: { PieChart },
   data() {
     return {
-      data: [],
-      options: {
+      loaded: false,
+      chartData: {
+        labels: ['Total NYC Consumption', 'Consumption per Person'],
+        datasets: [
+          {
+            data: [],
+            backgroundColor: ['#caf0f8', '#ADD8f9']
+          }
+        ]
+      },
+      chartOptions: {
         responsive: true,
-        maintainAspectRatio: false
+        maintainAspectRatio: true
       }
     }
   },
-  mounted() {
-    this.fetchData()
-  },
-  methods: {
-    async fetchData() {
-      try {
-        const response = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
-        const data = await response.json()
-        this.data = data
-        this.renderChart({
-          labels: this.data.map(item => item.type_of_use),
-          datasets: [{
-            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
-            data: this.data.map(item => item.total_gallons_per_day)
-          }]
-        }, this.options)
-      } catch (error) {
-        console.error(error)
-      }
+
+  async mounted() {
+    try {
+      const res = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
+      console.log(res)
+      let data = await res.json()
+      let nycConsumption = 0
+      let perPersonConsumption = 0
+      data.forEach((york) => {
+        nycConsumption += Number(york.nyc_consumption_million_gallons_per_day)
+        perPersonConsumption += Number(york.per_capita_gallons_per_person_per_day)
+      })
+      perPersonConsumption = perPersonConsumption / data.length
+      this.chartData.datasets[0].data.push(nycConsumption.toFixed(2))
+      this.chartData.datasets[0].data.push(perPersonConsumption.toFixed(2))
+      this.loaded = true
+    } catch (error) {
+      console.log(error)
     }
   }
 }
 </script>
+<style>
+.contain {
+  align-items: center;
+  text-align: center;
+  scale: 87%;
+}
+</style>
