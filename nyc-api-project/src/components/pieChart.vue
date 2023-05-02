@@ -6,13 +6,14 @@ import { Pie } from 'vue-chartjs'
 import {
   Chart as ChartJS,
   Title,
+  ArcElement,
   Tooltip,
   Legend,
   PieController,
   CategoryScale,
   LinearScale
 } from 'chart.js'
-ChartJS.register(Title, Tooltip, Legend, PieController, CategoryScale, LinearScale)
+ChartJS.register(Title, Tooltip, ArcElement, Legend, PieController, CategoryScale, LinearScale)
 
 export default {
   name: 'PieChart',

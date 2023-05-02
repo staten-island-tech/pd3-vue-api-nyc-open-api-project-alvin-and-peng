@@ -15,16 +15,12 @@ export default {
       loaded: false,
       chartData: {
         labels: ['<1000', '1050-1100', '1150-1200', '1250-1300', '1350-1499', '1500+'],
-        datasets: [
-          {
-            data: []
-          }
-        ]
+        datasets: [{ data: [] }]
       },
       chartOptions: {
         responsive: true,
         maintainAspectRatio: true,
-        backgroundColor: ['#caf0f8', '#ADD8f9']
+        backgroundColor: ['#caf0f8', '#ADD8f9', '#caf', '#add', 'rgb(39, 101, 152)']
       }
     }
   },
@@ -71,8 +67,5 @@ export default {
 </script>
 <style>
 .contain {
-  align-items: center;
-  text-align: center;
-  scale: 87%;
 }
 </style>
