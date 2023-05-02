@@ -1,68 +1,43 @@
 <template>
   <div>
-    <PieChart :chart-data="chartData" :chart-options="chartOptions"/>
+    <canvas ref="pieChart"></canvas>
   </div>
 </template>
 
 <script>
-import PieChart from '../components/pieChart.vue' 
-import { reactive } from 'vue'
+import { Pie } from 'vue-chartjs'
 
 export default {
-  name: 'PieView',
-  components: { PieChart },
-
-  setup() {
-    const chartData = reactive({
-      labels: [],
-      datasets: [
-        {
-          label: 'NYC Consumption Per Day',
-          data: [],
-          backgroundColor: [
-            'rgba(255, 99, 132, 0.5)',
-            'rgba(54, 162, 235, 0.5)',
-            'rgba(255, 206, 86, 0.5)',
-            'rgba(75, 192, 192, 0.5)',
-            'rgba(153, 102, 255, 0.5)',
-            'rgba(255, 159, 64, 0.5)'
-          ]
-        }
-      ]
-    })
-
-    const chartOptions = reactive({
-      responsive: true,
-      maintainAspectRatio: false,
-      title: {
-        display: true,
-        text: 'NYC Consumption Per Day'
-      }
-    })
-
+  extends: Pie,
+  data() {
     return {
-      chartData,
-      chartOptions
+      data: [],
+      options: {
+        responsive: true,
+        maintainAspectRatio: false
+      }
     }
   },
   mounted() {
-    fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
-      .then(response => response.json())
-      .then(data => {
-        const consumptionData = data.reduce((acc, item) => {
-          const date = new Date(item.date)
-          const day = date.toLocaleDateString('en-US', { weekday: 'long' })
-          acc[day] = (acc[day] || 0) + parseFloat(item.consumption.replace(/,/g, ''))
-          return acc
-        }, {})
-
-        const labels = Object.keys(consumptionData)
-        const values = Object.values(consumptionData)
-
-        this.chartData.labels = labels
-        this.chartData.datasets[0].data = values
-      })
-      .catch(error => console.error(error))
+    this.fetchData()
+  },
+  methods: {
+    async fetchData() {
+      try {
+        const response = await fetch('https://data.cityofnewyork.us/resource/ia2d-e54m.json')
+        const data = await response.json()
+        this.data = data
+        this.renderChart({
+          labels: this.data.map(item => item.type_of_use),
+          datasets: [{
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+            data: this.data.map(item => item.total_gallons_per_day)
+          }]
+        }, this.options)
+      } catch (error) {
+        console.error(error)
+      }
+    }
   }
 }
 </script>
