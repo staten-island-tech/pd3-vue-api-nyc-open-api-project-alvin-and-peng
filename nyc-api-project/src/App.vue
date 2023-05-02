@@ -8,6 +8,12 @@ import { RouterLink, RouterView } from 'vue-router'
       <nav>
         <RouterLink to="/">Home</RouterLink>
       </nav>
+      <nav> 
+        <router-link to="/pieView" >Data about Population</router-link>
+      </nav>
+      <nav> 
+        <router-link to="/BarView" >Data About Average Consumption</router-link>
+      </nav>
     </div>
   </header>
   <RouterView />
