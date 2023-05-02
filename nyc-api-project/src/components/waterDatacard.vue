@@ -12,18 +12,17 @@
   </RouterLink>
 </template>
 
-<script setup>
-import { computed } from 'vue'
-const props = defineProps({
-  water: Object,
-  year: Number,
-  new_york_city_population: Number,
-  nyc_consumption_million_gallons_per_day: Number,
-  per_capita_gallons_per_person_per_day: Number
-})
-const wtrpath = computed(() => {
-  return `/waterdata/${props.water.year}`
-})
+<script>
+export default {
+  props: {
+    water: Object,
+    year: Number,
+    id: Number,
+    new_york_city_population: Number,
+    nyc_consumption_million_gallons_per_day: Number,
+    per_capita_gallons_per_person_per_day: Number
+  }
+}
 </script>
 
 <style>
